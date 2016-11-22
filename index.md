@@ -6,22 +6,27 @@
 * HTTP
 
 #### What are we going to accomplish with this course
-// create a webserver that talks to a client and a database??
+In this course we are going to learn what is a webserver and create one in order to provide the API for a front end APP and serving it.
+
+In order to understand this we need to learn a bit of how the internet works, how the bits are transferred from place to place, TCP/IP and OSI model, all this in a very superficial way but it will let us have the big picture of what is going back stage.
+
+We are going to use Node.js as a tool to create our webserver, we are going to take a quick look at its bowels and then build a service with it.
 
 #### NodeJS Introduction
-* Installing Node.js
-* Node.js REPL
-* First server in node.js (hello world)
+**Installing Node.js**   
+Installing Node.js does not require the use of command line anymore, there are installers for Windows and OSX that you can download from the site [https://nodejs.org/en/download/].   
+
+**Node.js REPL and hello web world**   
+Node.js has a Real Evaluate Print Loop [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), an interactive programming environment, this a very ...
 http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
 * Point to a server in the same network
 
 #### How the fuck does the internet works?
-// This is super basic, just some definitions and diagrams
-* networking introduction
-* tcp/ip and http
-* unix sockets (buffers)
-* osi model
-* dns
+* TCP/IP DNS
+http://www.theshulers.com/whitepapers/internet_whitepaper/
+
+* OSI Model
+http://ru6.cti.gr/bouras-old/WP_Simoneau_OSIModel.pdf
 
 #### Webserver Architectures
 // Also super basic just some overview of synchronous web architectures
@@ -30,8 +35,12 @@ http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
 // how to improve this?
 
 #### Ryan Dahl Note on why he created Node.js
-// Ryan Dahl node about why he did node
+// Ryan Dahl note about why he did node
 http://chimera.labs.oreilly.com/books/1234000001808/pr01.html
+// A little analysis here of what he wanted to do
+// TCP buffers, IO de-multiplexing
+
+// The idea with non-blocking I/O is to be able to handle multiple sockets without resorting to multiple threads. The central part here is I/O de-multiplexing,
 
 #### So What the Fuck is node?
 // Quick discovery of what parts make node.js node.js
