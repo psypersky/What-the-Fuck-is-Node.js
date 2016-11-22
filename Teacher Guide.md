@@ -1,6 +1,6 @@
 __DAY 1:__
 * Install Node.js
-* Do The hello world example
+* Do The hello world example and explain the content of the chapter
 * Exercise: Create a Node.js server that returns an HTML page with the next data
 ```html
 !DOCTYPE <!DOCTYPE html>
