@@ -96,9 +96,22 @@ http://ru6.cti.gr/bouras-old/WP_Simoneau_OSIModel.pdf
 * Extras
 [UUNET's map](http://www.nthelp.com/images/uunet.pdf)
 
+// check later
+http://www.cs.miami.edu/home/wuchtys/CSC322-16F/Content/UNIXProgramming/UNIXThreads.shtml
+http://www.thegeekstuff.com/2012/03/linux-threads-intro/
+
+// check later
+https://www.scottklement.com/rpg/socktut/nonblocking.html
+http://www.kegel.com/dkftpbench/nonblocking.html
+
 #### Webserver Architectures
 
+[C10k problem](https://en.wikipedia.org/wiki/C10k_problem)
 
+// check
+https://www.phpclasses.org/blog/post/226-4-Reasons-Why-All-PHP-Frameworks-Suck.html
+https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations
+https://www.quora.com/What-causes-the-C10k-problem
 
 
 // Also super basic just some overview of synchronous web architectures
@@ -126,6 +139,8 @@ http://chimera.labs.oreilly.com/books/1234000001808/pr01.html
 
 // The idea with non-blocking I/O is to be able to handle multiple sockets without resorting to multiple threads. The central part here is I/O de-multiplexing,
 
+//theoretical node performance
+http://blog.3rd-eden.com/post/5809079469/theoretical-nodejs-real-time-performance
 
 
 // runtime is a server and a runtime enviroment http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
@@ -139,16 +154,87 @@ Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
 
 
 #### Node.js Design Fundamentals 7
-Read the next chapters from this [book](https://www.packtpub.com/mapt/book/web-development/9781783287314)
+Read the next chapters from the book [Node.js Design Patterns](https://www.packtpub.com/mapt/book/web-development/9781783287314)
 
 * Node.js philosophy
 * The Reactor Pattern and Event loop
-* The callback Pattern
 
+// TODO: Examples of the event loop and how it works   
+// TODO: using http://latentflip.com/loupe
+
+##### The callback Pattern
+
+Read the chapter named *The callback pattern* of the book [Node.js Design Patterns](https://www.packtpub.com/mapt/book/web-development/9781783287314)
+
+**First exercise:** Create an script that runs a function that calls another function that calls another function so the stack trace size is three, prove it printing the stack trace with console.trace() or creating an error and printing the Error.stack.
+
+**Second exercise** Create a jasmine test that proves that the first exercise works.
+
+**Third exercise** There are two functions that where made by a newbie node.js developer, its out duty to help him to fix the errors.
+
+The first function is on `exercises/callback-pattern/error1.js`, it is doing a synchronous calculation using CSP, but for some reason it always shows an error in the console, find out what is wrong and fix it.
+
+The second function is on `exercises/callback-pattern/error2.js` it is doing an asynchronous calculation but for some reason it always prints undefined in the console, find out what is wrong and fix it.
+
+
+
+// Closures and first Class objects make really easy to work with async functions, why?
+
+Synchronous continuation-passing style
+
+Asynchronous continuation-passing style
+
+// A Synchronous function blocks until is finished
+
+
+
+
+// Check later
+https://groups.google.com/forum/#!msg/nodejs/ztspFn-BKgE/qw1I9VLSG_gJ
+https://github.com/nodejs/node/issues/1128
+
+
+// Node.js Event loop
+http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop-tick
+
+// Functions First class objects
+http://helephant.com/2008/08/19/functions-are-first-class-objects-in-javascript/
+
+There's process._ getActiveHandles() and process._ getActiveRequests().
+
+
+
+
+
+
+
+
+
+
+
+
+function doSomethingAsync(callback) {
+    setTimeout(function() {
+        console.log('working...');
+        callback(new Error('something went bad'));
+    }, 1000);
+}
+
+doSomethingAsync(function(err) {
+    if (err) {
+        console.error('something did not work');
+        return;
+    }
+    console.log('work finished!');
+});
 
 
 
 * The module system
+// check later
+http://fredkschott.com/post/2014/06/require-and-the-module-system/
+https://auth0.com/blog/javascript-module-systems-showdown/
+
 * The observer pattern (EventEmitter)
 
 #### Asynchronous control flow 3
