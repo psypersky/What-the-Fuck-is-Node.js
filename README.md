@@ -2,8 +2,8 @@ A Node.js Course for the Blue Trail Software Interns
 
 Sources
 
-http://chimera.labs.oreilly.com/books/1234000001808/index.html
-
+1) http://chimera.labs.oreilly.com/books/1234000001808/index.html
+2 http://2.droppdf.com/files/0q2gl/beginning-node-js.pdf
 
 TCP/IP Overview
 http://www.garykessler.net/library/tcpip.html

@@ -97,6 +97,10 @@ http://ru6.cti.gr/bouras-old/WP_Simoneau_OSIModel.pdf
 [UUNET's map](http://www.nthelp.com/images/uunet.pdf)
 
 #### Webserver Architectures
+
+
+
+
 // Also super basic just some overview of synchronous web architectures
 // Synchronous architectures
 // Apache/php
@@ -106,17 +110,23 @@ In search for a more efficient web server a brave warrior started a quest in pro
 
 http://chimera.labs.oreilly.com/books/1234000001808/pr01.html   
 
+#### But What the Fuck is node?
+
+* Runtime, what is a runtime?
+* V8
+* C++ and machine code
+* Libuv
+
+
+
+
+// NOTE: maybe moving this analysis a little bit down...?
 // A little analysis here of what he wanted to do
 // TCP buffers, IO de-multiplexing
 
 // The idea with non-blocking I/O is to be able to handle multiple sockets without resorting to multiple threads. The central part here is I/O de-multiplexing,
 
-#### So What the Fuck is node?
-// Quick discovery of what parts make node.js node.js
-* runtime
-* V8
-* C++ and machine code
-* Libuv
+
 
 // runtime is a server and a runtime enviroment http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
 
@@ -128,39 +138,47 @@ Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
 // a runtime is bla bla bla
 
 
-#### Node.js Design Fundamentals
+#### Node.js Design Fundamentals 7
+Read the next chapters from this [book](https://www.packtpub.com/mapt/book/web-development/9781783287314)
+
 * Node.js philosophy
 * The Reactor Pattern and Event loop
 * The callback Pattern
+
+
+
+
 * The module system
 * The observer pattern (EventEmitter)
 
-#### Asynchronous control flow
+#### Asynchronous control flow 3
 * Plain JavaScript
 * Async Library
 * Promises
 * Generators
 // nextTick, setImmediate, setTimeout
 
-#### Streams and Buffers
+#### Streams and Buffers 5
 // Streams and buffers
 // Binary Data, Character Sets, and Encodings
 // Typed Arrays
 
-#### Modules
+#### Modules 2
 * Hardcoded dependency
 * Dependency injection
 * Service locator
 * Dependency injection containers
 
-# npm
+# npm 2
 
-#### Core modules
+#### Core modules 2
 // FileSystem
 // console.log
 // process.env
 
-#### REST/SOAP
+
+
+#### REST/SOAP 2
 
 #### Building an API
 //
@@ -173,13 +191,36 @@ Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
 
 #### Deploying the app in openshift
 
+// 6 tentativo
 
 
 
 
+function bla() {
+  console.log('hey');
+  low();
+  console.log('finished');
+}
+
+function low() {
+  console.log('low');
+}
 
 
 
+$.on('button', 'click', function onClick() {
+    setTimeout(function timer() {
+        console.log('You clicked the button!');    
+    }, 2000);
+});
+
+console.log("Hi!");
+
+setTimeout(function timeout() {
+    console.log("Click the button!");
+}, 5000);
+
+console.log("Welcome to loupe.");
 
 
 
