@@ -16,9 +16,7 @@ console.log('Result', result);
 
 function doSomeComplicatedMath(a, b, c, callback) {
   const res = a + b / c;
-  console.log(res);
   process.nextTick(() => {
-    console.log('nextticnk', res);
     callback(null, res);
   });
 }
