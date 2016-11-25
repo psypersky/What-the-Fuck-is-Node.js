@@ -20,3 +20,5 @@ function doSomeComplicatedMathSync(a, b, c, callback) {
   const res = a + b / c;
   callback(undefined,res);
 }
+
+module.exports = doSomeComplicatedMathSync;
