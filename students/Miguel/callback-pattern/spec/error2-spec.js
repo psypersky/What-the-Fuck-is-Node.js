@@ -20,6 +20,7 @@ function injectedFunction (err, res){
 
 describe('Testing function doSomeComplicatedMath', () => {
     beforeEach(() => {
+        functionRes = undefined;
         promise = new Promise((resolve, reject) => {
             resolve(doSomeComplicatedMath(a, b, c, injectedFunction));
         });
