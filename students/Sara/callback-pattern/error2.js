@@ -16,10 +16,10 @@ function doSomeComplicatedMath(a, b, c, callback) {
 
 doSomeComplicatedMath(a, b, c, function (err, res) {
   if (err) {
-    console.error('Some nasty error');
+    console.error('Some nasty error.');
     return;
   }
-  console.trace("doSomeComplicatedMath");
+  console.trace("doSomeComplicatedMath.");
   result = res;
   console.log('Result', result);
 });
