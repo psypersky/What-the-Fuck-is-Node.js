@@ -152,6 +152,32 @@ First lets go to their website https://nodejs.org, the description says:
 
 > Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
+> What is exactly Node.js? (longer description)
+
+JavaScript is an event-driven language, and Node uses this to its advantage to produce highly scalable servers. Using an architecture called an event loop, Node makes programming highly scalable servers both easy and safe. There are various strategies that are used to make servers performant. Node has chosen an architecture that performs very well but also reduces the complexity for the application developer. This is an extremely important feature. Programming concurrency is hard and fraught with danger. Node sidesteps this challenge while still offering impressive performance. 
+To support the event-loop approach, Node supplies a set of “nonblocking” libraries. In essence, these are interfaces to things such as the filesystem or databases, which operate in an event-driven way. When you make a request to the filesystem, rather than requiring Node to wait for the hard drive to spin up and retrieve the file, the nonblocking interface simply notifies Node when it has access, in the same way that web browsers notify your code about an onclick event. This model simplifies access to slow resources in a scalable way that is intuitive to JavaScript programmers and easy to learn for everyone else.
+
+
+> Why you should use Node.js
+
+Thread-based networking is relatively inefficient and very difficult to use. Furthermore, users of Node are free from worries of dead-locking the process, since there are no locks. Almost no function in Node directly performs I/O, so the process never blocks. Because nothing blocks, scalable systems are very reasonable to develop in Node.
+
+Node is similar in design to, and influenced by, systems like Ruby's Event Machine or Python's Twisted. Node takes the event model a bit further, it presents an event loop as a runtime construct instead of as a library. In other systems there is always a blocking call to start the event-loop. Typically behavior is defined through callbacks at the beginning of a script and at the end starts a server through a blocking call like EventMachine::run(). In Node there is no such start-the-event-loop call. Node simply enters the event loop after executing the input script. Node exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.
+
+HTTP is a first class citizen in Node, designed with streaming and low latency in mind. This makes Node well suited for the foundation of a web library or framework.
+
+Just because Node is designed without threads, doesn't mean you cannot take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.
+
+
+> Node.js as a web server
+
+Unlike some languages, such as PHP, that run inside a server such as Apache, Node itself acts as the web server, providing an http module which can be used to create an HTTP client of a server. Following is the bare minimum structure of the HTTP server which listens at 8081 port.
+
+> Node.js Runtime
+
+One of the things that’s often hard to understand about Node.js is that, in addition to being a server, it’s also a runtime environment in the same way that Perl, Python, and Ruby are. So, even though we often refer to Node.js as “server-side JavaScript,” that doesn’t really accurately describe what Node.js does. One of the best ways to come to grips with Node.js is to use Node REPL (“Read-Evaluate-Print-Loop”), an interactive Node.js programming environment. It’s great for testing out and learning about Node.js. You can try out any of the snippets in this book using Node REPL. In addition, because Node is a wrapper around V8, Node REPL is an ideal place to easily try out JavaScript. However, when you want to run a Node program, you can use your favorite text editor, save it in a file, and simply run node filename.js. REPL is a great learning and exploration tool, but we don’t use it for production code.
+
+
 Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
 
 A runtime is a lapse of time in which a computer program is running on an OS.
@@ -167,6 +193,7 @@ Ok, so, it's time to know a little more about the parts of node.js, GO!!!
 
 -Runtime: So, like we already see, a runtime it's the lapse in which a computer program is running in a OS, starts when the program gets into the main memory, and ends when the OS receives from the program an ending instruction.
 
+
 -V8: Well we haven't see it at this point but we will get to it soon, at this point you only need to know that is the JavaScript execution environment created by Google. It is written in C ++ and compiles JavaScript source code into machine code in place of interpreting it in real time.
 
 -Libuv: This is a library used by Node to handle asynchronous events libuv is an abstraction layer for network features and file system functionality on some Operative Systems.
@@ -174,6 +201,7 @@ Ok, so, it's time to know a little more about the parts of node.js, GO!!!
 Technical details
 
 The Node.js base operations body is written in JavaScript with support methods written in C ++.
+
 
 V8
 
