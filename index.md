@@ -99,12 +99,16 @@ http://ru6.cti.gr/bouras-old/WP_Simoneau_OSIModel.pdf
 // check later
 http://www.cs.miami.edu/home/wuchtys/CSC322-16F/Content/UNIXProgramming/UNIXThreads.shtml
 http://www.thegeekstuff.com/2012/03/linux-threads-intro/
-
-// check later
 https://www.scottklement.com/rpg/socktut/nonblocking.html
 http://www.kegel.com/dkftpbench/nonblocking.html
 
-#### Webserver Architectures
+#### Old Webserver Architectures
+
+TODO: Describe the thread/process per request webserver model (how is it called?), the memory consumption and process time overhead, iddle time,  describe the C10k problem, etc.
+
+// Also super basic just some overview of synchronous web architectures
+// Synchronous architectures
+// Apache/php
 
 [C10k problem](https://en.wikipedia.org/wiki/C10k_problem)
 
@@ -114,36 +118,35 @@ https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-consi
 https://www.quora.com/What-causes-the-C10k-problem
 
 
-// Also super basic just some overview of synchronous web architectures
-// Synchronous architectures
-// Apache/php
-
 #### Ryan Dahl Note on why he created Node.js
 In search for a more efficient web server a brave warrior started a quest in programming land, here is his story.
 
 http://chimera.labs.oreilly.com/books/1234000001808/pr01.html   
 
-#### But What the Fuck is node?
+
+#### Ooook, But What the Fuck is node?
+Before digging into how Node.js works lets see what are its parts.
 
 * Runtime, what is a runtime?
 * V8
 * C++ and machine code
 * Libuv
 
+**TODO-01:**   
+The goals of this Chapter are to explain what parts composes Node.js, what do each of this parts do, just a general overview of the node internals and what each parts is responsable of.
 
+The reader should be able to have a superficial idea of node.js, what does it do, the parts of it and a little about why performance is better
 
+* What is node.js?
+* Node.js is a webserver and a runtime enviroment
+* check webpage, explain what is a runtime
+* what parts compose node.js
+* c++
+* JavaScript -> [Node.js] -> machine code
+* Libuv
 
-// NOTE: maybe moving this analysis a little bit down...?
-// A little analysis here of what he wanted to do
-// TCP buffers, IO de-multiplexing
+**Students Task 1:** Complete the TODO-01
 
-// The idea with non-blocking I/O is to be able to handle multiple sockets without resorting to multiple threads. The central part here is I/O de-multiplexing,
-
-//theoretical node performance
-http://blog.3rd-eden.com/post/5809079469/theoretical-nodejs-real-time-performance
-
-
-// runtime is a server and a runtime enviroment http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
 
 First lets go to their website https://nodejs.org, the description says:
 
@@ -152,17 +155,52 @@ First lets go to their website https://nodejs.org, the description says:
 Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
 // a runtime is bla bla bla
 
+// runtime is a server and a runtime enviroment http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
 
-#### Node.js Design Fundamentals 7
-Read the next chapters from the book [Node.js Design Patterns](https://www.packtpub.com/mapt/book/web-development/9781783287314)
 
-* Node.js philosophy
-* The Reactor Pattern and Event loop
+#### And why the fuck would i use that monstrosity?
 
-// TODO: Examples of the event loop and how it works   
-// TODO: using http://latentflip.com/loupe
+**TODO-02:** We do not know about the Reactor model and the event loop so we can't explain exactly why Node.js is better but we can give an idea, explain here that since Node.js only have one thread there is very little idle time, is fast a have very low memory consuption, maybe some phansy images.
 
-##### The callback Pattern
+The idea with non-blocking I/O is to be able to handle multiple sockets without resorting to multiple threads.
+The central part here is I/O de-multiplexing.
+
+// theoretical node performance
+http://blog.3rd-eden.com/post/5809079469/theoretical-nodejs-real-time-performance
+
+
+
+#### Node.js Fundamentals and Fucking Boring Theory
+
+**NOTE:** In this chapter we should really see the theory of what Node.js is and start our relationship with the event loop and callback pattern.
+
+Read chapter one from the book [Node.js Design Patterns](https://www.packtpub.com/mapt/book/web-development/9781783287314)
+
+**Students Task 2:** Do you think reading the hole chapter one in one pass is boring? How do you think we can make this easier for reader? Write possible solutions and how each one will work.
+
+
+#### Lets watch fucking a movie!
+
+Read chapter three of this book http://chimera.labs.oreilly.com/books/1234000001808/ch03.html
+Read chapter two of this book beginning-node-js.pdf
+Read chapter 2 of node-js-the-right-way.pdf
+
+Watch this video: https://www.youtube.com/watch?v=8aGhZQkoFbQ
+Watch this video: https://www.youtube.com/watch?v=QyUFheng6J0
+
+**Students Task 3:** Read and watch that ^
+
+**Students Task 4:** Research all you possibly can about the Node.js Event loop and make a video about how it works since the beginning, receiving a request, processing it while other request is being received, calling the database and responding to clients, and the lines of code being executed.
+
+// Video editors in order of ease of use:
+http://www.maefloresta.com/portal/
+http://www.synfig.org/cms/
+http://www.blender.org/
+
+
+##### The callback Pattern (DEPRECATED)
+
+// Visualize the event loop http://latentflip.com/loupe
 
 Read the chapter named *The callback pattern* of the book [Node.js Design Patterns](https://www.packtpub.com/mapt/book/web-development/9781783287314)
 
@@ -186,6 +224,10 @@ Asynchronous continuation-passing style
 
 // A Synchronous function blocks until is finished
 
+
+##### Module system
+
+##### The observer pattern
 
 
 
@@ -237,23 +279,23 @@ https://auth0.com/blog/javascript-module-systems-showdown/
 
 * The observer pattern (EventEmitter)
 
-#### Asynchronous control flow 3
-* Plain JavaScript
-* Async Library
-* Promises
-* Generators
-// nextTick, setImmediate, setTimeout
+  #### Asynchronous control flow 3
+  * Plain JavaScript
+  * Async Library
+  * Promises
+  * Generators
+  // nextTick, setImmediate, setTimeout
 
-#### Streams and Buffers 5
-// Streams and buffers
-// Binary Data, Character Sets, and Encodings
-// Typed Arrays
+  #### Streams and Buffers 5
+  // Streams and buffers
+  // Binary Data, Character Sets, and Encodings
+  // Typed Arrays
 
-#### Modules 2
-* Hardcoded dependency
-* Dependency injection
-* Service locator
-* Dependency injection containers
+  #### Modules 2
+  * Hardcoded dependency
+  * Dependency injection
+  * Service locator
+  * Dependency injection containers
 
 # npm 2
 

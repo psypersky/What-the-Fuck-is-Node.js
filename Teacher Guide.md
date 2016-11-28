@@ -30,3 +30,6 @@ What is node.js?
 
 
 * Homework: Create as a group a how the fuck does the internet works infographic in canva, piktochart, or whatever software you want, divide the tasks between your classmates.
+
+
+__DAY 3:__
