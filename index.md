@@ -153,9 +153,37 @@ First lets go to their website https://nodejs.org, the description says:
 > Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
 Ok, so Node.js is a JavaScript runtime, but what the fuck is a runtime?
-// a runtime is bla bla bla
+
+A runtime is a lapse of time in which a computer program is running on an OS.
+This lapse starts when the program gets into the main memory, and the OS starts to
+execute the program instructions. And ends when the program sends to the OS an ending
+instruction, being this a normal ending instruction, when the program executed all of its
+instructions succesfully, or an anormal ending instruction, when the program result in
+an error and the OS must end the program execution.
 
 // runtime is a server and a runtime enviroment http://chimera.labs.oreilly.com/books/1234000001808/ch01.html#chap5_id35941617
+
+Ok, so, it's time to know a little more about the parts of node.js, GO!!!
+
+-Runtime: So, like we already see, a runtime it's the lapse in which a computer program is running in a OS, starts when the program gets into the main memory, and ends when the OS receives from the program an ending instruction.
+
+-V8: Well we haven't see it at this point but we will get to it soon, at this point you only need to know that is the JavaScript execution environment created by Google. It is written in C ++ and compiles JavaScript source code into machine code in place of interpreting it in real time.
+
+-Libuv: This is a library used by Node to handle asynchronous events libuv is an abstraction layer for network features and file system functionality on some Operative Systems.
+
+Technical details
+
+The Node.js base operations body is written in JavaScript with support methods written in C ++.
+
+V8
+
+V8 is the JavaScript execution environment created by Google. It is written in C ++ and compiles JavaScript source code into machine code in place of interpreting it in real time, in others words, V8 API allows you to compile and run JavaScript code at low level.
+
+Libuv
+
+Node.js uses libuv to handle asynchronous events. Libuv is an abstraction layer for network features and file system functionality on both Windows and POSIX-based systems like Linux, Mac OS X, OSS on NonStop and Unix.
+
+The core functionality of Node.js resides in a JavaScript library. The Node.js bindings, written in C++, connect these technologies to each other and to the operating system, for this reason Node.js is very fast.
 
 
 #### And why the fuck would i use that monstrosity?
