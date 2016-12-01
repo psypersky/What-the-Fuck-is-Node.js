@@ -179,6 +179,75 @@ Read chapter one from the book [Node.js Design Patterns](https://www.packtpub.co
 **Students Task 2:** Do you think reading the hole chapter one in one pass is boring? How do you think we can make this easier for reader? Write possible solutions and how each one will work.
 
 
+#### Lets program for the Event Loop
+
+**Initializing Node.js**
+When running a Node.js program it initializes the event loop, processes the provided input script which may make async API calls, schedule timers, or call process.nextTick(), then begins processing the event loop.
+
+Lets take a simple example:
+```
+const A = 12;
+
+setTimeout(() => { console.log('I was called from the event loop') }, 0);
+
+console.log('Last function in the script');
+```
+
+In this script Node.js creates an Event Loop and initialize it, runs the script, the script has one asynchronous function that is inserted in the event loop, the script finish and the event loop checks for callbacks waiting to be executed, takes the function and runs it printing `Last function in the script` in the console, after finishing with that function since the event loop is totally empty our Node.js program commits suicide and close itself.
+
+
+According to Node.js (docs)[https://github.com/nodejs/node/blob/master/doc/topics/event-loop-timers-and-nexttick.md] this is a simplified view of the Event Loop 😱:
+
+```
+   ┌───────────────────────┐
+┌─>│        timers         │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+│  │     I/O callbacks     │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+│  │     idle, prepare     │
+│  └──────────┬────────────┘      ┌───────────────┐
+│  ┌──────────┴────────────┐      │   incoming:   │
+│  │         poll          │<─────┤  connections, │
+│  └──────────┬────────────┘      │   data, etc.  │
+│  ┌──────────┴────────────┐      └───────────────┘
+│  │        check          │
+│  └──────────┬────────────┘
+│  ┌──────────┴────────────┐
+└──┤    close callbacks    │
+   └───────────────────────┘
+```
+
+Each phase has a FIFO queue of callbacks to execute, when the event loop enters a give phase it will perform operations specific to that phase until the queue has been exhausted or the maximum number of callbacks has executed, then it will move to the next phase.
+
+ This phase executes callbacks scheduled by setTimeout() and setInterval().
+ executes almost all callbacks with the exception of close callbacks, the ones scheduled by timers, and setImmediate().
+ only used internally.
+ retrieve new I/O events; node will block here when appropriate.
+* __check:__ setImmediate() callbacks are invoked here.
+* __close callbacks:__ e.g. socket.on('close', ...).
+
+
+There is little information at this level of depth about the Event Loop, for a more in depth analysis we need to go and read the C++ Libuv, Node and V8 docs, maybe some day, but for now our idea of how this works is the next one.
+
+After the execution of a Node.js program the event loop will make a "loop" or a "tick" this means complete one cycle of all steps:
+
+* __timers:__ It checks if there is any timer ready to be executed, if there is one or more timers ready it executes their callbacks until it finishes or we hit some hard limit;
+
+* __I/O callbacks:__ This phase checks if there any I/O events ready, almost all the callbacks (network, file system, etc.) end here with the exception of close callbacks, the ones scheduled by timers and setImmediate.
+
+* __idle, prepare:__ Looks like this checks and prepare handles once per iteration, whatever this means, they are functions of libuv library that are not exposed in Node.js and apparently we do not need to know in order to use Node.
+
+* __poll:__ This
+
+Polling, or polled operation, in computer science, refers to actively sampling the status of an external device by a client program as a synchronous activity. Polling is most often used in terms of input/output (I/O), and is also referred to as polled I/O or software-driven I/O.
+https://en.wikipedia.org/wiki/Polling_(computer_science)
+
+
+
+
+
 #### Lets watch fucking a movie!
 
 Read chapter three of this book http://chimera.labs.oreilly.com/books/1234000001808/ch03.html
@@ -190,12 +259,75 @@ Watch this video: https://www.youtube.com/watch?v=QyUFheng6J0
 
 **Students Task 3:** Read and watch that ^
 
-**Students Task 4:** Research all you possibly can about the Node.js Event loop and make a video about how it works since the beginning, receiving a request, processing it while other request is being received, calling the database and responding to clients, and the lines of code being executed.
+**Students Task 4:** Research all you possibly can about the Node.js Event loop and make a video about how it works since the beginning, receiving a request, processing it while other request is being received, calling the database and responding to clients, and the lines of code being executed. Its basically a movie of how node.js works in production.
 
 // Video editors in order of ease of use:
 http://www.maefloresta.com/portal/
 http://www.synfig.org/cms/
 http://www.blender.org/
+
+
+Important Things to note abut the readings:
+
+Node.js Design Patterns - The callback pattern
+- CPS = Callback Passing Style
+- CPS could be sync or async
+- Async tasks beginging from the event loop so they have a fresh stack
+- Closures makes trivial to maintain the context of the caller of the async function event if the callback is invoked at a different point in time and from a different location
+- A sync function bnlocks until it completes its operation
+- An async function returns immediately
+- Non continuation-passing style callbacks are sync
+- You could create an unpredictable function being sync or async
+- The direct style is preffered for sync functions, this makes obvious which are sync and async
+- ... Problems that could cause a sync function that you think is async ? ...
+- sync i/o blocks the event loop
+- deffered execution with process.nextTick()
+- callbacks come last and error comes first
+- in sync the error is propagated throwing, in CPS by the callback
+- throwing bubble your error in the stack until is catched
+- Use try/catch for functions that can throw errors
+- uncaught exeptions kill the app if they reach the event loop
+- we can catch uncaught exeptions directly in process
+
+try, catch,
+async, sync
+errors in callbacks
+stack
+
+
+Call stack=>
+
+two
+one
+nodejs stuff
+
+
+
+Node: Up and running - Chapter 3, the event loop
+- Node.js programs should be written in such way that no single callback ties up the event loop for extended periods of time
+- Once setup has been completed, make all actions event-drive
+- If you have a process that will take a long time consider using a child process
+- Use named functions for async events, the call name of the function on errors will be anonymous function when not named, this makes it harder to debug
+
+
+
+
+
+
+timers: this phase executes callbacks scheduled by setTimeout() and setInterval().
+I/O callbacks: executes almost all callbacks with the exception of close callbacks, the ones scheduled by timers, and setImmediate().
+idle, prepare: only used internally.
+poll: retrieve new I/O events; node will block here when appropriate.
+check: setImmediate() callbacks are invoked here.
+close callbacks: e.g. socket.on('close', ...).
+
+
+setImmediate() is actually a special timer that runs in a separate phase of the event loop. It uses a libuv API that schedules callbacks to execute after the poll phase has completed.
+
+
+
+
+
 
 
 ##### The callback Pattern (DEPRECATED)
