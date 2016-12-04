@@ -3,7 +3,7 @@
 var http = require('http');
 var fs   = require('fs');
 
-fs.readFile('./buzon.png', function (err, data) {
+fs.readFile('./test.txt', function (err, data) {
   http.createServer(function (req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
