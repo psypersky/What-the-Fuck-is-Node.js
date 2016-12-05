@@ -1,13 +1,14 @@
 'use strict';
 
-const port = 9000;
+const port = 9001;
 const http = require('http');
 const zlib = require('zlib');
 const fs = require('fs');
 
 http.createServer((request, response) => {
   // 'Content-Type': 'application/gzip'
-  response.writeHead(200, {'Content-Type': 'application/gzip', 'Content-Encoding': 'gzip'});
+  //response.writeHead(200, {'Content-Type': 'application/gzip', 'Content-Encoding': 'gzip'});
+  response.writeHead(200, {'Content-Type': 'application/zip', 'Content-disposition': 'attachment; filename=myFile.zip'});
 
   let outputFile = fs.createWriteStream('output.txt');
   let outputZipFile = fs.createWriteStream('output.txt.gz');
