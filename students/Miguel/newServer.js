@@ -2,22 +2,22 @@
 
 let http = require('http');
 let responseBody = "";
+let responseBodyArray = [];
 
 let server = http.createServer(function (request, response){
   let method = request.method;
   let url = request.url;
   let headers = request.headers;
   let flag = true;
-  // let body = [];
 
   request.on('data', function (chunk){
     body.push(chunk);
   }).on('end', function (){
-    // body = Buffer.concat(body).toString();
+
 
     flag = url.match('/sum');
 
-    if(flag && method === "GET"){
+    if(flag && method === "GET" && flag['index'] === 0 && (url[4] === undefined || url[4] === "/")){
       response.on('error', function (err){
         console.error(err);
       });
@@ -26,7 +26,10 @@ let server = http.createServer(function (request, response){
 
       response.setHeader('Content-type', 'application/json');
 
-      responseBody += url.split("/sum").join("");
+      responseBodyArray = url.split("/");
+      responseBodyArray.shift();
+      responseBodyArray.shift();
+      responseBody += responseBodyArray.join("/");
 
       response.write(responseBody);
       response.end();
