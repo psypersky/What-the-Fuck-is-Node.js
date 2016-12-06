@@ -32,7 +32,7 @@ var http = require('http');
 
 http.createServer(function(req, res){
    if(req.method == 'POST'){
-     
+
       res.writeHead(200, {'Content-Type': 'text/plain'});
 
       req.on('data', function (chunk) {
