@@ -1,0 +1,15 @@
+{
+  "name": "streams",
+  "version": "1.0.0",
+  "description": "first exercise for node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Olegario",
+  "license": "ISC",
+  "dependencies": {
+    "random-words": "0.0.1",
+    "superb": "^1.3.0"
+  }
+}
