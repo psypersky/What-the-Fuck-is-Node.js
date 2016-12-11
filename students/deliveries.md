@@ -36,4 +36,35 @@ Comments:
   connections by default, this means that instead of using one TCP connection per
   HTTP request it maintains the connection open to use in multiple HTTP requests,
   read about it in https://en.wikipedia.org/wiki/HTTP_persistent_connection.
-  
+
+  Miguel
+  Comments:
+* When parsing the body of the post you are parsing an specific case, what if the
+  body not only contains two members? Parsing data should be generalized.
+* Same thing than Isaac about separating each ROUTE-METHOD
+* You are using find to set a flag, this is not the way to use find, find returns
+  the first element that their function returns true, your are discarding that,
+  you can use the returned user inside the if to know if there is an user, e.g.
+
+  This is your code:
+```javascript
+  let flag = false;
+  usersDB.find(function(elem){
+    if (elem.userName === user && elem.password === pass) {
+      flag = true;
+    }
+    return flag;
+  });
+  if (flag) {
+```
+
+You can do this:
+```javascript
+
+const user =  usersDB.find((elem) =>
+  (elem.userName === user && elem.password === pass));
+
+if (user) {/*...*/}
+if (!user) {/*...*/}
+
+```
