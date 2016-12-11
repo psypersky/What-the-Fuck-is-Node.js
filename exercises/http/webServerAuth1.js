@@ -39,6 +39,14 @@ const PASS = 'superSecret';
 
 server.on('request', (request, response) => {
   console.log(`Received a ${request.method} on route ${request.url}`);
+  console.log('--');
+  // for (let i in request.client) {
+  //   if (request.client.hasOwnProperty(i)) {
+  //     console.log(i);
+  //   }
+  // }
+  console.log(request.client === request.socket);
+  console.log('--');
 
   if (request.method === 'GET' && request.url === '/') {
     response.writeHead(200, { 'Content-Type': 'text/html' });
