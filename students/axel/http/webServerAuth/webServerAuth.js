@@ -4,7 +4,7 @@ var http = require('http');
 fs   = require('fs');
 
 http.createServer(function (req, res) {
-    
+
     var dataBase = [
         {
             'user' : 'Ruben',
@@ -57,7 +57,7 @@ http.createServer(function (req, res) {
 
             data.forEach(function(element){
                 userPass.push(element.split("="));
-            });
+        });
 
             user = userPass[0][1];
             pass = userPass[1][1];
