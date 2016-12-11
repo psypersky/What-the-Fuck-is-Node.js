@@ -1,4 +1,3 @@
-
 const a = 2;
 const b = 3;
 const c = 7;
@@ -12,7 +11,9 @@ doSomeComplicatedMath(a, b, c, (err, res) => {
   result = res;
 });
 
-console.log('Result', result);
+process.nextTick(() => {
+  console.log('Result', result);
+});
 
 function doSomeComplicatedMath(a, b, c, callback) {
   const res = a + b / c;

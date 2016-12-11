@@ -1,4 +1,3 @@
-
 const a = 2;
 const b = 3;
 const c = 7;
@@ -17,5 +16,7 @@ console.log('Result', result);
 
 function doSomeComplicatedMathSync(a, b, c, callback) {
   const res = a + b / c;
-  callback(res);
+  callback(undefined,res);
 }
+
+module.exports = doSomeComplicatedMathSync;
