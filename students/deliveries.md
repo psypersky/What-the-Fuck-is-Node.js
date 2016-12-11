@@ -21,7 +21,7 @@ Olegario
 
 Base Server with form (studens/name/http/webServerAuth)
 
-__Isaac__
+__Isaac__   
 Comments:
 * Its better to have ROUTE-METHOD separated, instead of using the same if
   for a nested POST/GET
@@ -38,16 +38,18 @@ Comments:
   HTTP request it maintains the connection open to use in multiple HTTP requests,
   read about it in https://en.wikipedia.org/wiki/HTTP_persistent_connection.
 
-  __Miguel__
+__Miguel__   
   Comments:
 * When parsing the body of the post you are parsing an specific case, what if the
   body not only contains two members? Parsing data should be generalized.
 * Same thing than Isaac about separating each ROUTE-METHOD
+* Why the FUCK are you using an immediately invoked function wrapping your hole script?
+  Your script is a module and has its own scope what are your trying to not pollute? This is not the browser.
 * You are using find to set a flag, this is not the way to use find, find returns
   the first element that their function returns true, your are discarding that,
   you can use the returned user inside the if to know if there is an user, e.g.
 
-  This is your code:
+This is your code:
 ```javascript
   let flag = false;
   usersDB.find(function(elem){
@@ -70,7 +72,7 @@ if (!user) {/*...*/}
 
 ```
 
-__Axel__
+__Axel__   
 Comments:
 * You don't have home page x.X  laaazzyyy motherfucker!
 * The word "finded" does not exists, i think you mean "found"
@@ -86,3 +88,9 @@ pass = userPass[1][1];
 ```
 What if the data is not in that order?, you should create a map(Object)
 of the data sent, not an Array of Arrays
+
+
+__Olegario__   
+Comments:
+* "a" is not an useful name for a variable, names should represent what the variable holds
+* Use Array.prototype.find instead of Array.prototype.findIndex
