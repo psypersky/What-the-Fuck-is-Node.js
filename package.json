@@ -1,0 +1,22 @@
+{
+  "name": "what-the-fuck-is-node.js",
+  "version": "1.0.0",
+  "description": "A Node.js Course for the Blue Trail Software Interns",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psypersky/What-the-Fuck-is-Node.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psypersky/What-the-Fuck-is-Node.js/issues"
+  },
+  "homepage": "https://github.com/psypersky/What-the-Fuck-is-Node.js#readme"
+}

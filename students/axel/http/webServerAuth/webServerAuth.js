@@ -57,8 +57,13 @@ http.createServer(function (req, res) {
 
             data.forEach(function(element){
                 userPass.push(element.split("="));
+<<<<<<< HEAD
         });
 
+=======
+            });
+            
+>>>>>>> f2b87ab43c45f3d3dc15a665303bb63782b190a8
             user = userPass[0][1];
             pass = userPass[1][1];
             console.log("user: " + user + " pass: " + pass);

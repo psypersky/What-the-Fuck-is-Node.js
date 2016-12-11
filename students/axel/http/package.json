@@ -7,8 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+<<<<<<< HEAD
   "license": "ISC",
   "dependencies": {
     "cookie": "^0.3.1"
   }
+=======
+  "license": "ISC"
+>>>>>>> f2b87ab43c45f3d3dc15a665303bb63782b190a8
 }
