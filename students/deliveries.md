@@ -13,6 +13,7 @@ Axel
 Olegario
 
 Serving Static file
+Axel
 Isaac
 Miguel
 Olegario
@@ -20,7 +21,7 @@ Olegario
 
 Base Server with form (studens/name/http/webServerAuth)
 
-Isaac
+__Isaac__
 Comments:
 * Its better to have ROUTE-METHOD separated, instead of using the same if
   for a nested POST/GET
@@ -37,7 +38,7 @@ Comments:
   HTTP request it maintains the connection open to use in multiple HTTP requests,
   read about it in https://en.wikipedia.org/wiki/HTTP_persistent_connection.
 
-  Miguel
+  __Miguel__
   Comments:
 * When parsing the body of the post you are parsing an specific case, what if the
   body not only contains two members? Parsing data should be generalized.
@@ -68,3 +69,20 @@ if (user) {/*...*/}
 if (!user) {/*...*/}
 
 ```
+
+__Axel__
+Comments:
+* You don't have home page x.X  laaazzyyy motherfucker!
+* The word "finded" does not exists, i think you mean "found"
+* Same mistake than Miguel in using the find function to flag and discard the result
+* Really bad practice here
+```javascript
+data.forEach(function(element){
+    userPass.push(element.split("="));
+});
+
+user = userPass[0][1];
+pass = userPass[1][1];
+```
+What if the data is not in that order?, you should create a map(Object)
+of the data sent, not an Array of Arrays
