@@ -1,0 +1,1 @@
+Hello, this file supose to be readed by a request to a server.

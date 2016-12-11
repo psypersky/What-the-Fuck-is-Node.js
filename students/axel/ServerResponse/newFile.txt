@@ -1,0 +1,1 @@
+curl --header "filename: Uno.zip" --upload-file NODE_video_1.zip 192.168.199.111:8888

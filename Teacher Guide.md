@@ -18,8 +18,18 @@ __DAY 1:__
 * Talk about the internet
 * Explain the webserver Architectures
 * Reading: Ryan Dahl letter
-* Analyze a bit the Ryan Dahl letter
+
+__DAY 2:__
+
+What is node.js?
+
+* Analyze a bit the Ryan Dahl letter ?
   * TCP buffers
   * Threads
   * What he wanted to acompish?
+
+
 * Homework: Create as a group a how the fuck does the internet works infographic in canva, piktochart, or whatever software you want, divide the tasks between your classmates.
+
+
+__DAY 3:__
