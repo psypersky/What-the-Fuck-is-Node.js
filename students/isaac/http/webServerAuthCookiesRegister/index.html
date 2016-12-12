@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Node Web Server</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4-rc2/foundation.min.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Welcome, to Node Web Server</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="callout">
+          <h3>Hello there!</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-8 medium-8 columns">
+        <h5>Sign Up:</h5>
+        <!-- novalidate -->
+        <form id="form_register" action="/register" method="POST" novalidate>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Username</label>
+              <input type="text" name="username" placeholder="some_cool_username" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Password</label>
+              <input type="password" name="password" placeholder="S0m3th1ng-s3cret" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <!-- class="is-invalid-label" -->
+              <label>Telephone</label>
+              <!-- class="is-invalid-input" -->
+              <input type="tel" name="telephone" placeholder="52-123-4567890">
+              <!-- error msg -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 large-centered columns">
+              <input type="submit" class="success button expand" value="Register">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="large-4 medium-4 columns">
+        <h5>Already a member?</h5>
+        <form action="/login" method="POST">
+           <div class="row">
+             <div class="large-12 columns">
+                 <input type="text" name="username" placeholder="Username" required>
+             </div>
+           </div>
+          <div class="row">
+             <div class="large-12 columns">
+                 <input type="password" name="password" placeholder="Password" required>
+             </div>
+          </div>
+          <div class="row">
+            <div class="large-12 large-centered columns">
+              <input type="submit" class="button expand" value="Login">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      console.log('Client Login');
+      (function() {
+        'use strict';
+        let errorBox = '<span class="" id="_ID_">_MSG_</span>';
+
+        // Form register
+        let formRegister = document.getElementById('form_register');
+
+        formRegister.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          cleanErrors();
+
+          let data = {
+            username: formRegister.elements.username.value,
+            email: formRegister.elements.email.value,
+            password: formRegister.elements.password.value,
+            telephone: formRegister.elements.telephone.value,
+          };
+
+          Rq({
+            method: 'POST',
+            url: '/register',
+            data: data,
+            headers: {
+              'Accept': "application/json;text/html"
+            }
+          }).then((data) => {
+            console.log('Data->', data);
+            window.location = data; // I don't like this, but it works.
+          }, (reason) => {
+            //console.log('Some errors appeared->', reason);
+            try {
+              reason = JSON.parse(reason);
+
+              if(reason && reason.errors) {
+                reason.errors.forEach(error => {
+
+                  // input
+                  let inputUsername = document.getElementsByName(error.type)[0];
+
+                  // element
+                  let errorHTML = createDOMElement('span', {
+                    class: 'form-error is-visible'
+                  }, error.msg);
+
+                  errorHTML.addEventListener('click', (e) => {
+                    console.log(errorHTML);
+                  });
+
+                  inputUsername.insertAdjacentHTML('afterend', errorHTML.outerHTML);
+                });
+              }
+
+            } catch (e) {
+              throw e;
+            }
+          });
+        });
+
+        // Request Object
+        let Rq = function (options) {
+          let method = options.method || 'GET',
+              url = options.url || '/',
+              data = options.data || null,
+              headers = options.headers || {},
+              parse = options.parse || null;
+
+          return new Promise(function(resolve, reject) {
+            let req = new XMLHttpRequest();
+
+            req.open(method, url, true);
+
+            headers.charset = "utf-8";
+
+            Object.keys(headers).forEach(k => {
+                req.setRequestHeader(k, headers[k]);
+            });
+
+            req.onload = function() {
+              let response = req.response;
+
+              if (req.status === 200 || req.status === 302) {
+                if(parse && typeof parse === 'function') {
+                  try {
+                    response = parse(response);
+                  } catch (e) {
+                    reject(e);
+                  }
+                }
+                resolve(response);
+              } else {
+                  reject(response);
+              }
+            };
+
+            req.onerror = function() {
+              reject(new Error("Network error"));
+            };
+
+            req.send(serializeBody(data));
+          });
+        };
+
+        function serializeBody(data) {
+          if(data && typeof data === 'object') {
+            let body = [];
+            for (let k in data){
+              body.push(encodeURIComponent(k) + '=' + encodeURIComponent(data[k]));
+            }
+            return body.join('&');
+          }
+          return null;
+        }
+
+        function createDOMElement(name, attributes) {
+            attributes = attributes || {};
+            let node = document.createElement(name);
+
+            // Attributes
+            Object.keys(attributes).forEach(attr => {
+                node.setAttribute(attr, attributes[attr]);
+            });
+
+            // Children
+            for (let i = 2; i < arguments.length; i++) {
+                let child = arguments[i];
+
+                if (typeof child === "string") {
+                    child = document.createTextNode(child);
+                }
+                node.appendChild(child);
+            }
+
+            return node;
+        }
+
+        function cleanErrors(){
+          let elements = document.getElementsByClassName('form-error');
+
+          while(elements.length > 0) {
+            elements[0].parentNode.removeChild(elements[0]);
+          }
+        }
+      }());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4-rc2/foundation.min.css">
+    <style>
+
+      body {
+        background: #F0F0F3;
+      }
+
+      .login-box {
+        background: #fff;
+        border: 1px solid #ddd;
+        margin: 100px 0;
+        padding: 40px 20px 0 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="large-3 large-centered columns">
+      <div class="login-box">
+        <div class="row">
+          <div class="large-12 columns">
+            <h5>Please, authenticate</h5>
+            <form method="POST">
+               <div class="row">
+                 <div class="large-12 columns">
+                     <input type="text" name="username" placeholder="Username">
+                 </div>
+               </div>
+              <div class="row">
+                 <div class="large-12 columns">
+                     <input type="password" name="password" placeholder="Password">
+                 </div>
+              </div>
+              <div class="row">
+                <div class="large-12 large-centered columns">
+                  <input type="submit" class="button expand" value="Login">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      console.log('Client Login');
+      (function() {
+        'use strict';
+
+        let Rq = function (method, url) {
+          return new Promise(function(resolve, reject) {
+            let req = new XMLHttpRequest();
+
+            req.open(method, url, true);
+
+            req.onload = function() {
+              if (req.status === 200) {
+                  resolve(req.response);
+              } else {
+                  reject(new Error("Request failed: " + req.statusText));
+              }
+            };
+
+            req.onerror = function() {
+              reject(new Error("Network error"));
+            };
+
+            req.send();
+          });
+        };
+
+        // Rq('GET', '/users').then((data) => {
+        //   console.log('Data->', data);
+        // });
+      }());
+    </script>
+  </body>
+</html>
