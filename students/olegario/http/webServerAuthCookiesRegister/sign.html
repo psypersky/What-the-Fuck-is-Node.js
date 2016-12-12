@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+</head>
+<body>
+  <h1>Sign up</h1>
+  <form method="post" action="/signUp" onsubmit="return validacion()" id= "form1">
+    <label> User name: </label>
+    <input type="text" name="user" id="user"/>
+    <span style="display:none;" id="err1">  The User name is required</span>
+    <br> <br>
+    <label> E-mail: </label>
+    <input type="text" name="mail" id="mail"/>
+    <span style="display:none;" id="err2">  The E-mail is required</span>
+    <br> <br>
+    <label> Phone: </label>
+    <input type="text" name="phone" id="phone"/>
+    <br> <br>
+    <label> Password: </label>
+    <input type="password" name="pass" id="pass"/>
+    <span style="display:none;" id="err3">The password is required</span>
+    <span style="display:none;" id="err4">Password length should be at least 6</span>
+    <br>
+    <input type="submit" value="Sign in" />
+  </form>
+
+
+  <script type="text/javascript">
+    function validacion() {
+      let errors = 0;
+      let name = document.getElementById("user").value;
+      let email = document.getElementById("mail").value;
+      let passw = document.getElementById("pass").value;
+
+      let data = 'name='+ name +'&mail='+ email+'&pass='+ passw +'&test=algo';
+
+      let check  = new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest(), errors;
+      request.open('POST', '/validate',true);
+
+      request.onload = function() {
+        console.log(request.response);
+        if (request.status == 200) {
+          resolve('success');
+        }
+        else {
+          reject(request.response);
+        }
+      };
+      request.setRequestHeader("Content-type", "application/json");
+      request.send(data);
+    }).then(function (data) {
+        console.log('sin errores');
+        document.getElementById("form1").onsubmit = 'false';
+        document.getElementById("form1").submit();
+        // debugger;
+    }, function (data) {
+      console.log(data);
+
+        for (let i = 1; i < 5; i++) {
+          document.getElementById("err" + i).style.display='none';
+        }
+
+        errors = data.split(',');
+        errors.forEach(function (element) {
+          document.getElementById(element).style.display='inline';
+        });
+    });
+    return false;
+    }
+  </script>
+</body>
+</html>
