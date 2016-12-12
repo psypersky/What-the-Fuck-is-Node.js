@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In</title>
+    <style media="screen">
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign in... if you have balls.</h1>
+    <form action="/signin" method="POST"  onsubmit="return submitForm(this);">
+        <label>email</label><input type="email" id="email"><span id="errEmail"></span>
+        <br>
+        <br>
+        <label>user name</label><input type="text" id="user"><span id="errUser"></span>
+        <br>
+        <br>
+        <label>password</label><input type="password" id="password"><span id="errPass"></span>
+        <br>
+        <br>
+        <label>telephone</label><input type="tel" id="telephone">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function submitForm(data){
+            var status;
+            var email = document.getElementById("email").value;
+            var user = document.getElementById("user").value;
+            var password = document.getElementById("password").value;
+            var telephone = document.getElementById("telephone").value;
+            var data = "email=" + email + "&user=" + user + "&password=" + password + "&telephone=" + telephone;
+            document.getElementById('errEmail').innerHTML = "";
+            document.getElementById('errUser').innerHTML = "";
+            document.getElementById('errPass').innerHTML = "";
+
+            var promise = new Promise(function(resolve, reject){
+                let request = new XMLHttpRequest();
+                request.open('POST', "/validate");
+                request.onload = function() {
+                    if (request.status == 200) {
+                        resolve(request.response);
+                    } else {
+                        reject(request.response);
+                        throw 'Problemas';
+                    }
+                };
+                request.send(data);
+            });
+
+            promise.then(function(data){
+
+                location.reload();
+                
+            }, function(data){
+
+                data = data.split(',');
+
+                if (data[0] === "true") {
+                    document.getElementById('errEmail').innerHTML = " llena el capo de email puñetas";
+                }
+                if (data[1] === "true") {
+                    document.getElementById('errUser').innerHTML = " llena el capo de user puñetas";
+                }
+                if (data[2] === "true") {
+                    document.getElementById('errPass').innerHTML = " llena el capo de password puñetas";
+                }
+                if (data[2] === "less") {
+                    document.getElementById('errPass').innerHTML = " minimo 6 caracteres basura";
+                }
+            });
+            return false;
+        }
+    </script>
+</body>
+</html>
