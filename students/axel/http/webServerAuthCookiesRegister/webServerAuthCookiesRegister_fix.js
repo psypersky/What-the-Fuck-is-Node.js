@@ -1,6 +1,7 @@
-const http   = require('http'),
-      fs     = require('fs'),
-      cookie = require('cookie');
+const http        = require('http'),
+      fs          = require('fs'),
+      cookie      = require('cookie'),
+      querystring = require('querystring');
 
 http.createServer(function (req, res) {
     var dataBase = [
@@ -23,7 +24,7 @@ http.createServer(function (req, res) {
         email    = "",
         tel      = "",
         newReg   = {},
-        finded   = false,
+        usr      = "",
         errors = [],
         error = false,
         cookies,
@@ -35,7 +36,7 @@ http.createServer(function (req, res) {
     }
 
     if (req.url === "/login" && req.method === "GET" && !req.headers.cookie) {
-        console.log("uno");
+        console.log("Inside of login and get method");
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.createReadStream("login.html").pipe(res);
     }
@@ -49,8 +50,7 @@ http.createServer(function (req, res) {
 
     //POST of the sign in form
     if (req.url === "/validate" && req.method === "POST"  && !req.headers.cookie) {
-        console.log("ora");
-        console.log("Method: " + req.method);
+
         console.log("POST method on sign in");
 
         req.on('data', (bufferChunk) => {
@@ -59,21 +59,15 @@ http.createServer(function (req, res) {
 
         req.on('end', () => {
             body = Buffer.concat(body).toString();
-            data = body.split("&");
-            data.forEach(function(element){
-                elements.push(element.split("="));
-            });
-            email = elements[0][1];
-            user  = elements[1][1];
-            pass  = elements[2][1];
-            tel   = elements[3][1];
+            body = querystring.parse(body);
             newReg = {};
+            console.log(body);
 
             //validations
 
             //email
-            if (email) {
-                newReg.email = email;
+            if (body.email) {
+                newReg.email = body.email;
                 errors.push(false);
             } else {
                 errors.push(true);
@@ -81,8 +75,8 @@ http.createServer(function (req, res) {
             }
 
             //user
-            if (user) {
-                newReg.user = user;
+            if (body.user) {
+                newReg.user = body.user;
                 errors.push(false);
             } else {
                 errors.push(true);
@@ -90,9 +84,9 @@ http.createServer(function (req, res) {
             }
 
             //password
-            if (pass){
-                if (pass.length >= 6) {
-                    newReg.pass = pass;
+            if (body.password){
+                if (body.password.length >= 6) {
+                    newReg.pass = body.password;
                     errors.push(false);
                 } else {
                     errors.push("less");
@@ -103,14 +97,14 @@ http.createServer(function (req, res) {
                 error = true;
             }
 
-            if (tel) {
-                newReg.tel = tel;
+            if (body.telephone) {
+                newReg.tel = body.telephone;
             }
 
             if (!error) {
                 dataBase.push(newReg);
                 console.log(dataBase);
-                res.setHeader('Set-Cookie', [data[1]]);
+                res.setHeader('Set-Cookie', ["user=" + body.user]);
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 res.end();
             } else {
@@ -136,24 +130,13 @@ http.createServer(function (req, res) {
 
         req.on('end', () => {
             body = Buffer.concat(body).toString();
-            data = body.split("&");
-            userPass = [];
+            body = querystring.parse(body);
+            console.log(body);
 
-            data.forEach(function(element){
-                userPass.push(element.split("="));
-            });
+            usr = dataBase.find( (current) => current.user === body.user && current.pass === body.pass );
 
-            user = userPass[0][1];
-            pass = userPass[1][1];
-
-            dataBase.find(function (current) {
-                if(current.user === user && current.pass === pass){
-                    finded = true;
-                }
-            });
-
-            if (finded) {
-                res.setHeader('Set-Cookie', [data[0]]);
+            if (usr) {
+                res.setHeader('Set-Cookie', ["user=" + usr.user]);
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 fs.createReadStream("user.html").pipe(res);
             } else {
@@ -184,9 +167,16 @@ http.createServer(function (req, res) {
             res.end();
         }
     }
-    if (req.url === "/") {
+    if (req.url === "/" && !req.headers.cookie && req.method === "GET") {
+        console.log("Inside of / url and method GET no cookie");
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.createReadStream("login.html").pipe(res);
+    }
+
+    if (req.url === "/" && req.headers.cookie && req.method === "GET") {
+        console.log("Inside of / url and method GET no cookie");
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        fs.createReadStream("user.html").pipe(res);
     }
 
     if(req.url !== "/" && req.url !== "/user" && req.url !== "/login" && req.url !== "/signin" && req.url !== "/validate") {
