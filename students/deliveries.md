@@ -98,3 +98,11 @@ Comments:
 ## 08/Dic/2016
 
 ### Server With Cookies Authentication (studens/name/http/webServerAuthCookiesRegister)
+
+__Isaac__
+* If you are in a module you don't need to create closures to not pollute your scope,
+  you already have a module with its own scope, use singleton class instead
+* If you have findUserByUsername and findUserByEmail create a function
+  findUserBy(name, property) that you use like findUserBy('Ruben', 'name')
+* Why in hell are you still injecting stuff on the socket???, why do you think we
+  use cookies for?, you are generating a 'random' token but you are not verifying it

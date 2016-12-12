@@ -22,7 +22,9 @@ server.on('request', (request, response) => {
   //console.log('cookie-token->', cookies.token);
   //console.log('client-token->', client.token);
 
-  const AUTHENTICATED = Boolean(cookies && cookies.token && client.token && cookies.token === client.token);
+  console.log(client.token, request.socket.token);
+
+  const AUTHENTICATED = Boolean(cookies && cookies.token);
 
   //console.log('AUTHENTICATED->', AUTHENTICATED);
 
