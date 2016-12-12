@@ -6,20 +6,20 @@ Sara
 
 ## 08/Dic/2016
 
-Implementing Readable/Writable Stream
-Isaac
-Miguel
-Axel
-Olegario
+### Implementing Readable/Writable Stream
+__Isaac__   
+__Miguel__   
+__Axel__   
+__Olegario__   
 
-Serving Static file
-Axel
-Isaac
-Miguel
-Olegario
+### Serving Static file   
+__Axel__   
+__Isaac__   
+__Miguel__   
+__Olegario__
 
 
-Base Server with form (studens/name/http/webServerAuth)
+### Base Server with form (studens/name/http/webServerAuth)
 
 __Isaac__   
 Comments:
@@ -94,3 +94,7 @@ __Olegario__
 Comments:
 * "a" is not an useful name for a variable, names should represent what the variable holds
 * Use Array.prototype.find instead of Array.prototype.findIndex
+
+## 08/Dic/2016
+
+### Server With Cookies Authentication (studens/name/http/webServerAuthCookiesRegister)
