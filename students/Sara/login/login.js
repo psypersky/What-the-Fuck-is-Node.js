@@ -43,7 +43,14 @@ http.createServer(function(req, res) {
 
       if (user) {
           res.writeHead(200, {"Content-Type" : "text/html"});
-          fs.createReadStream("welcome.html").pipe(res);
+          fs.readFile('./welcome.html', function (err, data) {
+            if (err){
+              throw err;
+            }
+            data = data.toString();
+            data = data.replace ("{}", body.user);
+            res.end(data);
+          });
       }
       else {
         res.writeHead(400, {"Content-Type" : "text/html"});
