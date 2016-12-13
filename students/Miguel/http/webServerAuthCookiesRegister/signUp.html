@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <script type="text/javascript">
+      function signUp (formData) {
+        let xhr = new XMLHttpRequest();
+        let email = document.getElementById('signUpEmail').value,
+            username = document.getElementById('signUpUsername').value,
+            password = document.getElementById('signUpPassword').value,
+            telephone = document.getElementById('signUpTelephone').value;
+        let data = 'email=' + email + '&username=' + username + '&password=' + password + '&telephone=' + telephone + '&signup=Sign+Up';
+        let myPromise = new Promise ((resolve, reject) => {
+          xhr.open("POST", "/signup");
+          xhr.onload = function (){
+            if(xhr.status === 200){
+              resolve(xhr.response);
+            } else {
+              reject(xhr.response);
+            }
+          }
+          xhr.send(data);
+        });
+
+        myPromise.then((data) => {
+          location.reload();
+        },
+        (data) => {
+          data = JSON.parse(data);
+          if (data.email) {
+            document.getElementById('emailError').innerHTML = "You have to write an email dumbass";
+          }
+          if (data.username) {
+            document.getElementById('usernameError').innerHTML = "You have to write an username dumbass";
+          }
+          if (data.password) {
+            document.getElementById('passwordError').innerHTML = "You have to write a password dumbass";
+          } else if (data.passwordLength) {
+            document.getElementById('passwordError').innerHTML = "Your password has to have more than 6 letters dumbass";
+          }
+        });
+        return false;
+      }
+
+      function signIn () {
+        let xhr = new XMLHttpRequest();
+        let username = document.getElementById('signInUsername').value,
+            password = document.getElementById('signInPassword').value;
+
+        let data = 'username=' + username + '&password=' + password + '&signin=Sign+In';
+
+        let myPromise = new Promise ((resolve, reject) => {
+          xhr.open("POST", "/signup");
+          xhr.onload = function (){
+            if(xhr.status === 200){
+              resolve(xhr.response);
+            } else {
+              reject(xhr.response);
+            }
+          }
+          xhr.send(data);
+        });
+
+        myPromise.then((data) => {
+          location.reload();
+        },
+        (data) => {
+          data = JSON.parse(data);
+          if (data[0]) {
+            document.getElementById('signInError').innerHTML = "Username or password incorrect";
+          }
+        });
+        return false;
+      }
+    </script>
+    <style media="screen">
+      span {
+        color: red;
+        font-weight: bold;
+        margin-left: 20px;
+      }
+    </style>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <form id="myFormSignUp" class="form-sign-in" method="post" onsubmit="return signUp(this)">
+            <h4>Register</h4>
+            <label for="email">Email*:</label><span id="emailError"></span>
+            <input id="signUpEmail" type="email" name="email" value="" placeholder="Email" class="form-control input-sm chat-input"><br>
+            <label for="username">Username*:</label><span id="usernameError"></span>
+            <input id="signUpUsername" type="text" name="username" value="" placeholder="Username" class="form-control input-sm chat-input"><br>
+            <label for="password">Password*:</label><span id="passwordError"></span>
+            <input id="signUpPassword" type="password" name="password" value="" placeholder="Password" class="form-control input-sm chat-input"><br>
+            <label for="telephone">Telephone:</label>
+            <input id="signUpTelephone" type="telephone" name="telephone" value="" placeholder="Telephone" class="form-control input-sm chat-input"><br>
+            <input type="submit" class="btn btn-primary" name="signup" value="Sign Up">
+          </form>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-5">
+          <form id="myFormSignIn" class="form-login" method="post" onsubmit="return signIn();">
+            <h4>Log In</h4>
+            <label for="username">Username:</label>
+            <input id="signInUsername" type="text" name="username" class="form-control input-sm chat-input" placeholder="Username"><br>
+            <label for="password">Password:</label>
+            <input id="signInPassword" type="password" name="password" class="form-control input-sm chat-input" placeholder="Password"><br>
+            <input type="submit" class="btn btn-primary" name="signin" value="Sign In">
+            <span id="signInError"></span>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- App JS -->
+    <!-- <script src="/app.js" charset="utf-8"></script> -->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
