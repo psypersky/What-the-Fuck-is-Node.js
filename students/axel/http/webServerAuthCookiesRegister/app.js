@@ -153,8 +153,8 @@ http.createServer(function (req, res) {
             });
 
             if (finded) {
-                res.setHeader('Set-Cookie', [data[0]]);
-                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.setHeader('Set-Cookie', [data[0], 'redirect=/user']);
+                //res.writeHead(304, {'Location': '/user'});
                 fs.createReadStream("user.html").pipe(res);
             } else {
                 res.writeHead(200, {'Content-Type': 'text/html'});

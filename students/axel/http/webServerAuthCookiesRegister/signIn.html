@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign In</title>
+    <script src='/test.js'>
     <style media="screen">
         span {
             color: red;
@@ -57,7 +58,7 @@
             promise.then(function(data){
 
                 location.reload();
-                
+
             }, function(data){
 
                 data = data.split(',');
