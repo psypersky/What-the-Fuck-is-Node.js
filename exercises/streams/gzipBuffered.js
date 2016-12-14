@@ -9,9 +9,9 @@ const file = process.argv[2];
   its callback and the write file get the bugger and save it to disk
 **/
 
- fs.readFile(file, 'utf8', (err, string) => {
+ fs.readFile(file, (err, buffer) => {
    console.log(buffer.toString('utf8'));
-   zlib.gzip(string, (err, bufferComprimido) => {
+   zlib.gzip(buffer, (err, bufferComprimido) => {
      console.log(bufferComprimido.toString('utf8'));
      fs.writeFile(file + '.gz', bufferComprimido, err => {
        console.log('File successfully compressed');

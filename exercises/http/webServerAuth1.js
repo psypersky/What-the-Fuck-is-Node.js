@@ -49,8 +49,11 @@ server.on('request', (request, response) => {
   console.log('--');
 
   if (request.method === 'GET' && request.url === '/') {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    fs.createReadStream('./index.html').pipe(response);
+    setTimeout(() => {
+      response.writeHead(200, { 'Content-Type': 'text/html' });
+      fs.createReadStream('./index.html').pipe(response);
+    }, 5000);
+
 
   } else if (request.method === 'GET' && request.url === '/login') {
     response.writeHead(200, { 'Content-Type': 'text/html' });
