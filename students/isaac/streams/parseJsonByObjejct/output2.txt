@@ -1,0 +1,43 @@
+  "_id": "5850188439570bc5d01eeeeb",
+  "index": 0,
+  "guid": "415ef0b5-f540-4f50-8fa0-838be44cecd5",
+  "isActive": true,
+  "balance": "$1,805.78",
+  "picture": "http://placehold.it/32x32",
+  "age": 29,
+  "eyeColor": "brown",
+  "name": "White Talley",
+  "gender": "male",
+  "company": "VIOCULAR",
+  "email": "whitetalley@viocular.com",
+  "phone": "+1 (874) 405-2176",
+  "address": "850 Baltic Street, Hollymead, Palau, 8935",
+  "about": "Ullamco eiusmod irure veniam ea labore consectetur. Veniam do mollit excepteur veniam eu veniam. Quis et ut nostrud est ullamco. Magna aliquip magna nostrud enim enim. Quis Lorem nisi non ex voluptate ut anim commodo.\r\n",
+  "registered": "2014-04-11T10:55:35 +05:00",
+  "latitude": 40.057059,
+  "longitude": 171.40817,
+  "tags": [
+    "eiusmod",
+    "cupidatat",
+    "voluptate",
+    "irure",
+    "ea",
+    "laborum",
+    "pariatur"
+  ],
+  "friends": [
+    {
+      "id": 0,
+      "name": "Lenora Livingston"
+    },
+    {
+      "id": 1,
+      "name": "Stacy Small"
+    },
+    {
+      "id": 2,
+      "name": "Wall Everett"
+    }
+  ],
+  "greeting": "Hello, White Talley! You have 7 unread messages.",
+  "favoriteFruit": "apple"
