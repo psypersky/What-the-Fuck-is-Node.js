@@ -8,7 +8,7 @@ var user = {
 };
 
 app.use(bodyParser.json())
-
+var users = [];
 
 app.use(function timeLog (req, res, next) {
   console.log('Time: ', Date.now())
@@ -28,10 +28,12 @@ app.get('/user', function (req, res) {
 })
 
 app.post('/user', function (req, res) {
+  users.push(req.body);
   res.status(201).json(req.body);
 })
 
 app.put('/user/:id', function (req, res) {
+  users.push(req.body);
   res.json(req.body);
 })
 
