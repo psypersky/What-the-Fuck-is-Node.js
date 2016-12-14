@@ -1,18 +1,22 @@
-var app = require('.');
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const app = require('.');
 
-var should = chai.should();
+const chai = require('chai');
+
+const chaiHttp = require('chai-http');
+
 chai.use(chaiHttp);
-describe('First testing', function() {
-	it('Hello world testing', function(done) {
-	  chai.request(app)
-	    .get('/')
-	    .end(function(err, res){
-	      res.should.have.status(200);
-	      res.text.should.equal('Hello World!');
-	      done();
-	    });
-	});
+
+chai.should();
+
+describe('First testing', () => {
+    it('Hello world testing', (done) => {
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.text.should.equal('Hello World!');
+                done();
+            });
+    });
 });
 

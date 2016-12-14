@@ -1,25 +1,26 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
+
+const router = express.Router();
 
 
-var user = {
-	id: 1,
-	name: 'Cesar'
+const user = {
+    id: 1,
+    name: 'Cesar',
 };
 
 
-router.get('/', function (req, res) {
-  res.json(user);
-})
+router.get('/', (req, res) => {
+    res.json(user);
+});
 
-router.post('/', function (req, res) {
-  res.status(201).json(req.body);
-})
-router.put('/:id', function (req, res) {
-  res.json(req.body);
-})
-router.delete('/:id', function (req, res) {
-  res.sendStatus(200);
-})
+router.post('/', (req, res) => {
+    res.status(201).json(req.body);
+});
+router.put('/:id', (req, res) => {
+    res.json(req.body);
+});
+router.delete('/:id', (req, res) => {
+    res.sendStatus(200);
+});
 
-module.exports = router
+module.exports = router;
