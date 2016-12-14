@@ -33,7 +33,6 @@ app.post('/user', function (req, res) {
 })
 
 app.put('/user/:id', function (req, res) {
-  users.push(req.body);
   res.json(req.body);
 })
 
