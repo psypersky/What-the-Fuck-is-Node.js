@@ -66,14 +66,6 @@ describe('Simple route testing', () => {
                 done();
             });
     });
-    it('GET', (done) => {
-        chai.request(app)
-            .get(`/user/${user2.id}`)
-            .end((err, res) => {
-                res.should.have.status(400);
-                done();
-            });
-    });
     it('POST', (done) => {
         chai.request(app)
             .post('/auth')
