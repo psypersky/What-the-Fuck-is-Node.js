@@ -13,10 +13,10 @@ chai.use(dirtyChai);
 chai.should();
 
 describe('Simple route testing', () => {
-    let user = {
+    const user = {
         name: 'goku',
         email: 'goku@capsulecorp.com',
-        password: 'asd123'
+        password: 'asd123',
     };
     let token = '';
     it('POST', (done) => {
@@ -53,10 +53,10 @@ describe('Simple route testing', () => {
                 res.should.be.json();
                 res.body.should.be.a('object');
                 res.body.should.have.property('auth-token');
-                utoken = res.body['auth-token'];
+                token = res.body['auth-token'];
                 done();
             });
-    });    
+    });
     it('GET', (done) => {
         chai.request(app)
             .get(`/user/${user.id}`)
@@ -70,16 +70,16 @@ describe('Simple route testing', () => {
                 res.body.should.have.property('email');
                 res.body.id.should.equal(user.id);
                 res.body.email.should.equal(user.email);
-                res.body.name.should.equal(user.email);
+                res.body.name.should.equal(user.name);
                 done();
             });
     });
     it('PUT', (done) => {
-        let name = 'Super Supersaiyajin';
+        const name = 'Super Supersaiyajin';
         chai.request(app)
             .put(`/user/${user.id}`)
             .set('auth-token', token)
-            .send({name})
+            .send({ name })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json();
@@ -108,5 +108,5 @@ describe('Simple route testing', () => {
                 res.should.have.status(404);
                 done();
             });
-    });    
+    });
 });
