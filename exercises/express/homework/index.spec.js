@@ -18,6 +18,11 @@ describe('Simple route testing', () => {
         email: 'goku@capsulecorp.com',
         password: 'asd123',
     };
+    const user2 = {
+        name: 'vegeta',
+        email: 'vegeta@capsulecorp.com',
+        password: 'vegeta1',
+    };
     let token = '';
     it('POST', (done) => {
         chai.request(app)
@@ -36,9 +41,34 @@ describe('Simple route testing', () => {
                 done();
             });
     });
+    it('POST', (done) => {
+        chai.request(app)
+            .post('/user')
+            .send(user2)
+            .end((err, res) => {
+                res.should.have.status(201);
+                res.should.be.json();
+                res.body.should.be.a('object');
+                res.body.should.have.property('id');
+                res.body.should.have.property('name');
+                res.body.should.have.property('email');
+                res.body.email.should.equal(user2.email);
+                res.body.name.should.equal(user2.name);
+                user2.id = res.body.id;
+                done();
+            });
+    });
     it('GET', (done) => {
         chai.request(app)
             .get(`/user/${user.id}`)
+            .end((err, res) => {
+                res.should.have.status(400);
+                done();
+            });
+    });
+    it('GET', (done) => {
+        chai.request(app)
+            .get(`/user/${user2.id}`)
             .end((err, res) => {
                 res.should.have.status(400);
                 done();
