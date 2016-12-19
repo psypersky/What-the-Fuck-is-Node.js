@@ -12,20 +12,6 @@ app.use(bodyParser.json());
 const database = [];
 var user;
 
-// app.all('/user', (req, res, next) => {
-//   var user = database.find(function (element) {
-//     if (req.body.name === element.name) {
-//
-//     }
-//   });
-//   // console.log(req.body);
-//   if (!req.headers['auth-token']) {
-//     res.status(400).json({error: 'pelas'});
-//   } else {
-//     next();
-//   }
-// });
-
 app.post('/user', (req, res) => {
   req.body.id = database.length > 0 ? database[database.length - 1].id + 1 : 1;
   var position = database.push(req.body);
