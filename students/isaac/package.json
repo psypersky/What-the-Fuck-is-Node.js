@@ -1,0 +1,21 @@
+{
+  "name": "express-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "cors": "^2.8.1",
+    "dirty-chai": "^1.2.2",
+    "express": "^4.14.0",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.17.1"
+  }
+}
