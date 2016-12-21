@@ -1,13 +1,18 @@
 "use strict";
 
 const express = require('express');
+const saltHashPassword = require('../modules/encrypt');
 const router = express.Router();
 
 const usersDB = [];
 
 router.post('', (req, res) => {
-  req.body.id = usersDB.length + 1;
-  usersDB.push(req.body);
+  let user = {}
+  user.id = usersDB.length + 1;
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.password = saltHashPassword(req.body.password);
+  usersDB.push(user);
   res.status(201).json(usersDB[usersDB.length - 1]);
 });
 
