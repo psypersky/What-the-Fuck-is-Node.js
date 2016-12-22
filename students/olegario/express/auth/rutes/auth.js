@@ -1,5 +1,6 @@
 const express = require('express');
 const service = require('../service');
+const crypto = require('../encrypt/encrypt');
 
 const route = express.Router();
 
@@ -20,7 +21,8 @@ module.exports = route;
 
 function exist (user) {
  return database.find(function (element) {
-   if (user.name === element.name && (user.password === element.password || user.email === element.email)) {
+   var password = user.password ? crypto(user.password) : false;
+   if (user.name === element.name && (password === element.password || user.email === element.email)) {
      return true;
    }
  });

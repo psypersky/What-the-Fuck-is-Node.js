@@ -1,13 +1,15 @@
 const express = require('express');
 const middleware = require('../middleware/middleware');
+const crypto = require('../encrypt/encrypt');
 
 const route = express.Router();
 
 const database = [];
 
 route.post('', (req, res) => {
-  req.body.id = database.length > 0 ? database[database.length - 1].id + 1 : 1;
-  var position = database.push(req.body);
+  req.body.id       = database.length > 0 ? database[database.length - 1].id + 1 : 1;
+  req.body.password = crypto(req.body.password);
+  var position      = database.push(req.body);
   res.status(201).json(database[position-1]);
 });
 
@@ -49,7 +51,8 @@ module.exports = {
 
 function exist (user) {
  return database.find(function (element) {
-   if (user.name === element.name && (user.password === element.password || user.email === element.email)) {
+   var password = user.password ? crypto(user.password) : false;
+   if (user.name === element.name && (password === element.password || user.email === element.email)) {
      return true;
    }
  });
