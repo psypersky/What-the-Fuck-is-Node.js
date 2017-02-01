@@ -52,11 +52,21 @@ const server = http.createServer();
 server.on('request', (request, response) => {
   console.log(`Received a ${request.method} on route ${request.url}`);
 
+  const cookies = cookie.parse(request.headers.cookie || '');
+
+  if (cookies.token && cookies.userId) {
+    const user = db.findUser('id', cookies.userId);
+    if (user) {
+      request.user = user;
+      console.log('user is logged');
+    }
+  }
+
   if (request.method === 'GET' && request.url === '/') {
 
     cookies = cookie.parse(request.headers.cookie || '');
 
-    if (cookies.auth === PASS) {
+    if (cookies.token) {
       response.writeHead(302, { 'Location': '/user' });
       response.end();
       return;

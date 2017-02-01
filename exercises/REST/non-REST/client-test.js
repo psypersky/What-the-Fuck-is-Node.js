@@ -2,12 +2,13 @@ const request = require('supertest');
 const { assert, expect, should } = require('chai');
 const server = require('./server');
 
+const agent = request.agent(server);
 
 describe('Server', function() {
 
   describe('static pages', function() {
     it('should return the main page when logged out', (done) => {
-      request(server)
+      agent
       .get('/')
       .expect(200)
       .expect(textBodyContains('My great web page'))
@@ -21,7 +22,7 @@ describe('Server', function() {
 
   describe('login', function() {
     it('should reject invalid logins', (done) => {
-      request(server)
+      agent
       .post('/login')
       .expect(401)
       .expect('Content-Type', /application\/json/)
@@ -33,7 +34,7 @@ describe('Server', function() {
     });
 
     it('should login valid users', (done) => {
-      request(server)
+      agent
       .post('/login')
       .set('Accept', 'application/json')
       .send({
@@ -52,11 +53,23 @@ describe('Server', function() {
           }
         }
       })
+      // TODO: Check the cookies
       .end(done);
     });
+
+    it('should redirect logged users to /user', (done) => {
+      agent
+      .get('/')
+      //.expect(textBodyContains('My great web page'))
+      .expect('Content-Type', /text\/html/)
+      .expect((res) => console.log(res.text))
+      .end(done);
+    });
+
   });
 
 });
+
 
 
 function textBodyContains(text) {
